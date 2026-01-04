@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'students/base.html' %}
+    {% block title %}Students Dashboard{% endblock %}
+    {% block content %}
+    <h2>Students</h2>
+    <form method="get">
+        <input type="text" name="q" value="{{ q }}" placeholder="Search">
+        <button type="Submit">Search</button>
+    </form>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr> <br>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Year</th>
+            <th>Actions</th>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.roll_no }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.email }}</td>
+            <td>{{ s.course }}</td>
+            <td>{{ s.year }}</td>
+            <td>
+                <a href="{% url 'students:edit' s.pk %}">Edit</a>
+                <a href="{% url 'students:delete' s.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No students found</td></tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+</body>
+</html>
